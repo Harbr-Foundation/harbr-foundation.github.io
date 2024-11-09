@@ -53,6 +53,9 @@ WORKDIR /usr/src/app
 # Copy the built executable from builder
 COPY --from=builder /usr/src/app/Harbr/target/release/harbr ./harbr
 COPY --from=builder /usr/src/app/Harbr/harbr.config.json ./harbr.config.json
+COPY --from=builder /usr/src/app/Harbr/repo.json ./repo.json
+COPY --from=builder /usr/src/app/Harbr/shortcuts.json ./shortcuts.json
+COPY --from=builder /usr/src/app/Harbr/activity.json ./activity.json
 
 # Create a non-root user
 RUN adduser -D appuser && \
