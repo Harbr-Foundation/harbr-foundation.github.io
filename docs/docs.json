@@ -1,0 +1,12 @@
+{
+    "docs": [
+      {
+        "slug": "test",
+        "title": "Getting Started with Harbr",
+        "category": "Introduction",
+        "excerpt": "Learn how to set up and start using Harbr for your version control needs.",
+        "tags": ["setup", "introduction", "basics"],
+        "image": "/docs/images/getting-started.png"
+      }
+    ]
+  }
