@@ -5,9 +5,7 @@
     GitFork,
     Star,
     Settings,
-    Bell,
     Search,
-    Menu,
     X
   } from 'lucide-svelte';
   import Navbar from '$lib/components/AppNavbar.svelte';

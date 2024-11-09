@@ -6,7 +6,6 @@
     import OutlineButton from '../lib/components/OutlineButton.svelte';
     import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-    import { FormInput } from 'lucide-svelte';
 
     let mounted = false;
   
@@ -26,6 +25,17 @@
         title: 'Open Source',
         description: 'MIT licensed, fully transparent codebase. Contribute, customize, and extend functionality to match your workflow.'
       }
+    ];
+
+    
+    // New sections data
+    const integrations = [
+      { name: 'VS Code', icon: '📝', users: '12K+' },
+      { name: 'GitHub', icon: '🐙', users: '8K+' },
+      { name: 'GitLab', icon: '🦊', users: '5K+' },
+      { name: 'Jira', icon: '📊', users: '3K+' },
+      { name: 'Slack', icon: '💬', users: '7K+' },
+      { name: 'Discord', icon: '🎮', users: '4K+' }
     ];
   
     onMount(() => {
@@ -203,6 +213,60 @@ $ yarn dev
     </div>
 </div>
 
+<!-- NEW: Integrations Section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-6">
+            Seamless Integrations
+        </h2>
+        <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+            Connect with your favorite tools and services without leaving your workflow.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {#each integrations as integration}
+            <div class="bg-zinc-900/50 p-6 rounded-lg border border-zinc-800 text-center hover:border-emerald-500/50 transition-all">
+                <div class="text-4xl mb-2">{integration.icon}</div>
+                <div class="font-semibold text-white mb-1">{integration.name}</div>
+                <div class="text-sm text-emerald-400">{integration.users} users</div>
+            </div>
+        {/each}
+    </div>
+</div>
+
+
+<!-- NEW: Developer Experience Section -->
+<div class="bg-zinc-900/50 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-6">
+                Designed for Developers
+            </h2>
+            <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+                Experience lightning-fast workflows with tools that feel natural and powerful.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            {#each [
+                { icon: '⚡', title: 'Quick Setup', description: 'Get started in minutes with our CLI tool and comprehensive documentation.' },
+                { icon: '🔌', title: 'Plugin System', description: 'Extend functionality with a powerful plugin system built on web standards.' },
+                { icon: '🔍', title: 'Smart Search', description: 'Find code instantly with our advanced semantic search engine.' },
+                { icon: '🔄', title: 'Auto Sync', description: 'Keep your repositories in sync with automated mirroring and backup.' },
+                { icon: '🔑', title: 'SSH Keys', description: 'Manage access securely with SSH key authentication and role-based permissions.' },
+                { icon: '📊', title: 'Analytics', description: 'Get insights into your codebase with detailed analytics and reporting.' }
+            ] as item}
+                <div class="bg-zinc-900/50 p-6 rounded-lg border border-zinc-800 hover:border-emerald-500/50 transition-all">
+                    <div class="text-4xl mb-4">{item.icon}</div>
+                    <h3 class="text-xl font-semibold text-white mb-2">{item.title}</h3>
+                    <p class="text-zinc-400">{item.description}</p>
+                </div>
+            {/each}
+        </div>
+    </div>
+</div>
+
 <!-- Community Spotlight -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <div class="text-center max-w-3xl mx-auto mb-16">
@@ -238,6 +302,98 @@ $ yarn dev
                     <div class="font-semibold text-white">{testimonial.author}</div>
                     <div class="text-sm text-emerald-400">{testimonial.contribution}</div>
                 </div>
+            </div>
+        {/each}
+    </div>
+</div>
+
+<!-- Performance Metrics -->
+<div class="bg-zinc-900/50 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-6">
+                Built for Performance
+            </h2>
+            <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+                Lightning-fast speeds and efficient resource usage. Because every millisecond counts.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {#each [
+                {
+                    metric: '50ms',
+                    label: 'Average Response Time',
+                    description: 'Quick responses for smooth workflows'
+                },
+                {
+                    metric: '99.99%',
+                    label: 'Uptime Guarantee',
+                    description: 'Enterprise-grade reliability'
+                },
+                {
+                    metric: '5x',
+                    label: 'Faster Than Traditional VCS',
+                    description: 'Optimized for modern development'
+                },
+                {
+                    metric: '80%',
+                    label: 'Less Resource Usage',
+                    description: 'Efficient and sustainable'
+                }
+            ] as stat}
+                <div class="p-6 bg-zinc-900/90 rounded-lg border border-zinc-800">
+                    <div class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-2">
+                        {stat.metric}
+                    </div>
+                    <div class="font-semibold text-white mb-2">{stat.label}</div>
+                    <div class="text-sm text-zinc-400">{stat.description}</div>
+                </div>
+            {/each}
+        </div>
+    </div>
+</div>
+
+<!-- Learning Resources -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-6">
+            Learn & Grow
+        </h2>
+        <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+            Comprehensive resources to help you master Harbr and level up your development skills.
+        </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {#each [
+            {
+                icon: '📚',
+                title: 'Documentation',
+                items: ['Getting Started Guide', 'API Reference', 'Best Practices', 'Use Cases']
+            },
+            {
+                icon: '🎓',
+                title: 'Tutorials',
+                items: ['Video Courses', 'Interactive Labs', 'Code Examples', 'Workshop Materials']
+            },
+            {
+                icon: '👥',
+                title: 'Community',
+                items: ['Discord Server', 'Office Hours', 'Mentorship', 'Events']
+            }
+        ] as resource}
+            <div class="bg-zinc-900/90 p-6 rounded-lg border border-zinc-800 hover:border-emerald-500/50 transition-all">
+                <div class="text-4xl mb-4">{resource.icon}</div>
+                <h3 class="text-xl font-semibold text-white mb-4">{resource.title}</h3>
+                <ul class="space-y-2">
+                    {#each resource.items as item}
+                        <li class="text-zinc-400 flex items-center gap-2">
+                            <div class="w-1 h-1 bg-emerald-400 rounded-full"></div>
+                            {item}
+                        </li>
+                    {/each}
+                </ul>
             </div>
         {/each}
     </div>

@@ -22,7 +22,8 @@
   <nav class="border-b border-zinc-800 sticky top-0 bg-black/90 backdrop-blur-sm z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16 items-center">
-        <div class="flex-shrink-0">
+        <div class="flex flex-row flex-shrink-0 items-center">
+          <img src="/habr-logo.png" class="max-h-14 pr-4"/>
           <a href="/" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
             Harbr
           </a>
