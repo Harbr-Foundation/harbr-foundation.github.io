@@ -5,9 +5,6 @@
     Star,
     Clock,
     Filter,
-    SlidersHorizontal,
-    X,
-    ChevronDown,
     Lock,
     Globe2
   } from 'lucide-svelte';
@@ -36,7 +33,7 @@
   // Move fetch inside onMount
   onMount(async () => {
     try {
-      const response = await fetch('https://localhost:3030/repo.json');
+      const response = await fetch('http://localhost:3030/repo.json');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

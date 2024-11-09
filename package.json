@@ -23,6 +23,7 @@
 	"dependencies": {
 		"lucide-react": "^0.456.0",
 		"lucide-svelte": "^0.456.0",
+		"marked": "^15.0.0",
 		"path": "^0.12.7"
 	}
 }

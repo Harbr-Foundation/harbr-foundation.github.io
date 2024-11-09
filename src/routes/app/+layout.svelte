@@ -10,6 +10,7 @@
     Menu,
     X
   } from 'lucide-svelte';
+  import Navbar from '$lib/components/AppNavbar.svelte';
   
   let isSidebarOpen = false;
   let isSearchOpen = false;
@@ -45,42 +46,7 @@
 {/if}
 
 <div class="min-h-screen flex flex-col">
-  <!-- Header -->
-  <header class="border-b border-zinc-800 bg-black/90 backdrop-blur-sm sticky top-0 z-40 flex-none">
-    <div class="flex items-center justify-between px-4 h-14">
-      <div class="flex items-center gap-4">
-        <button
-          class="md:hidden p-2 hover:bg-zinc-800/50 rounded-lg"
-          on:click={() => isSidebarOpen = !isSidebarOpen}
-        >
-          <Menu size={20} />
-        </button>
-        <a href="/" class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-          Harbr
-        </a>
-      </div>
-
-      <button
-        class="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-zinc-400 bg-zinc-900/50 hover:bg-zinc-800 rounded-lg border border-zinc-800 flex-1 mx-8 max-w-lg"
-        on:click={() => isSearchOpen = true}
-      >
-        <Search size={16} />
-        <span>Quick search...</span>
-        <span class="ml-auto text-zinc-600">⌘K</span>
-      </button>
-
-      <div class="flex items-center gap-4">
-        <button class="p-2 hover:bg-zinc-800/50 rounded-lg relative">
-          <Bell size={20} />
-          <span class="absolute top-1 right-1 w-2 h-2 bg-emerald-400 rounded-full"></span>
-        </button>
-        <button class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500">
-          <span class="sr-only">Profile</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
+<Navbar></Navbar>
   <!-- Main Layout -->
   <div class="flex-1 flex">
     <!-- Sidebar -->

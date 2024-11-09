@@ -24,7 +24,7 @@
     
     import PrimaryButton from '$lib/components/PrimaryButton.svelte';
     import OutlineButton from '$lib/components/OutlineButton.svelte';
-    import FeatureCard from '$lib/components/FeatureCard.svelte';
+    import Markdown from '$lib/components/Markdown.svelte';
   
     // Project Theme (could be fetched from project settings)
     const projectTheme = {
@@ -307,13 +307,18 @@
                 </div>
               </div>
             </div>
-  
             <!-- README or File Content -->
-            <div class="bg-zinc-900/50 backdrop-blur-sm rounded-lg border border-zinc-800 p-6">
-              <div class="prose prose-invert max-w-none">
-                <div class="markdown-content">
-                  {repo.readme}
+            <div class="bg-zinc-900/50 backdrop-blur-sm rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="border-b border-zinc-800 px-6 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <FileText size={16} class="text-zinc-400" />
+                  <span class="font-medium">README.md</span>
                 </div>
+                <div class="text-sm text-zinc-500">{repo.fileTree?.find(f => f.name === 'README.md')?.size || '4.8 KB'}</div>
+              </div>
+              <div class="p-6">
+                Content:
+                <Markdown content={repo.readme} />
               </div>
             </div>
           </div>
