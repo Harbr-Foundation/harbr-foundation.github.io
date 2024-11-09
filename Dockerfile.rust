@@ -1,5 +1,11 @@
+# Add ARG to store the cache bust value
+ARG CACHE_BUST=unknown
+
 # Build stage
 FROM rust:1.82-alpine AS builder
+
+# Use the ARG in a RUN command to force cache invalidation
+RUN echo "Cache bust: ${CACHE_BUST}"
 
 # Install build dependencies
 RUN apk add --no-cache musl-dev pkgconfig openssl-dev mysql-dev git
