@@ -51,12 +51,12 @@ RUN apk add --no-cache libgcc openssl mysql-client
 WORKDIR /usr/src/app
 
 # Copy the built executable from builder
-COPY --from=builder /usr/src/app/Harbr/target/release/Harbr ./Harbr
+COPY --from=builder /usr/src/app/Harbr/target/release/harbr ./harbr
 COPY --from=builder /usr/src/app/Harbr/harbr.config.json ./harbr.config.json
 
 # Create a non-root user
 RUN adduser -D appuser && \
-    chown appuser:appuser Harbr
+    chown appuser:appuser harbr
 
 USER appuser
 
@@ -64,5 +64,4 @@ USER appuser
 EXPOSE 8080
 
 # Run the API
-CMD ["sleep","infinity"]
-#CMD ["./Harbr", "run"]
+CMD ["./harbr", "run"]
