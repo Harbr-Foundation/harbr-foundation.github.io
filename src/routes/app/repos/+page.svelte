@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import { 
     Search,
     GitFork,
@@ -16,9 +16,9 @@
   let showFilters = false;
   
   // Filter states
-  let selectedType: 'all' | 'public' | 'private' = 'all';
+  let selectedType;
   let selectedLanguage = 'all';
-  let selectedSort: 'updated' | 'stars' | 'name' = 'updated';
+  let selectedSort;
 
   const languages = [
     { name: 'All', value: 'all' },
@@ -29,63 +29,24 @@
     { name: 'Go', value: 'go', color: '#00ADD8' }
   ];
 
-  const repositories = [
-    {
-      name: 'harbr/core',
-      description: 'Core functionality and backend services. Built with Rust for maximum performance and reliability. Includes the central version control system, authentication, and API layer.',
-      isPrivate: false,
-      stars: 1204,
-      forks: 234,
-      language: 'Rust',
-      languageColor: '#dea584',
-      lastUpdated: '2 hours ago',
-      topics: ['rust', 'git', 'vcs', 'backend']
-    },
-    {
-      name: 'harbr/ui',
-      description: 'React component library and design system. A comprehensive set of accessible, customizable components built with React, TypeScript, and Tailwind CSS.',
-      isPrivate: false,
-      stars: 892,
-      forks: 156,
-      language: 'TypeScript',
-      languageColor: '#2b7489',
-      lastUpdated: '5 hours ago',
-      topics: ['react', 'typescript', 'ui', 'design-system']
-    },
-    {
-      name: 'harbr/api',
-      description: 'Internal API service for handling repository operations, user management, and integrations. Includes comprehensive documentation and testing suite.',
-      isPrivate: true,
-      stars: 0,
-      forks: 0,
-      language: 'Go',
-      languageColor: '#00ADD8',
-      lastUpdated: '1 day ago',
-      topics: ['api', 'go', 'microservices']
-    },
-    {
-      name: 'harbr/cli',
-      description: 'Command-line interface for Harbr. Built with Rust for cross-platform compatibility and blazing fast performance.',
-      isPrivate: false,
-      stars: 445,
-      forks: 67,
-      language: 'Rust',
-      languageColor: '#dea584',
-      lastUpdated: '3 days ago',
-      topics: ['cli', 'rust', 'developer-tools']
-    },
-    {
-      name: 'harbr/docs',
-      description: 'Official documentation and guides. Built with Next.js and MDX for a great developer experience.',
-      isPrivate: false,
-      stars: 345,
-      forks: 89,
-      language: 'TypeScript',
-      languageColor: '#2b7489',
-      lastUpdated: '1 week ago',
-      topics: ['documentation', 'mdx', 'nextjs']
+  let repositories;
+
+  fetch('https://localhost:3030/repo.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  ];
+    return response.json(); // Parse the response as JSON
+  })
+  .then(data => {
+    // Do something with the JSON data
+    console.log(data);
+    repositories = data
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('Error:', error);
+  });
 
   // Filter and sort repositories
   $: filteredRepos = repositories
