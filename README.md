@@ -1,3 +1,6 @@
+# Do not use Harbr in production, it is **NOT** ready for production deployments
+
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
