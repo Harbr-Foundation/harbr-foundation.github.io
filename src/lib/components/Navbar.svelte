@@ -11,7 +11,7 @@
         { href: '/features', label: 'Features' },
         { href: '/docs', label: 'Documentation' },
         { href: '/source', label: 'Source Code' },
-        { href: '/login', label: 'Log In' }
+        { href: '/auth', label: 'Log In' }
     ];
   
     function toggleMenu() {
