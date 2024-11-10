@@ -11,6 +11,8 @@
       EyeOff 
     } from 'lucide-svelte';
     import type { ActionData } from './$types';
+    import Typewriter from '$lib/components/Typewriter.svelte';
+    import { fly, fade } from 'svelte/transition';
     
     export let form: ActionData;
     
@@ -82,8 +84,11 @@
             <path d="M20 12L28 24H12L20 12Z" fill="currentColor" />
           </svg>
         </div>
-        <h1 class="text-2xl font-bold tracking-tight">Welcome to Harbr</h1>
-        <p class="text-zinc-400 mt-2">Your modern version control platform</p>
+        <h1 class="text-2xl font-bold tracking-tight"
+        in:fly={{ y: 10, duration: 500, delay: 200, opacity: 0 }}>
+          Welcome to Harbr
+        </h1>
+        <Typewriter text="Your modern version control platform" />
       </div>
   
       <!-- Auth form -->

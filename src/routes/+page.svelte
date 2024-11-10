@@ -49,6 +49,7 @@
 </svelte:head>
 
 <Navbar></Navbar>
+
 <div class="relative">
     <div class="absolute inset-0 overflow-hidden">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 to-transparent opacity-30" />
