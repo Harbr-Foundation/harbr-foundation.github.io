@@ -1,4 +1,3 @@
-<!-- RepoSlug.svelte -->
 <script lang="ts">
   import { 
     Star,
@@ -25,6 +24,7 @@
   import PrimaryButton from '$lib/components/PrimaryButton.svelte';
   import OutlineButton from '$lib/components/OutlineButton.svelte';
   import Markdown from '$lib/components/Markdown.svelte';
+  import SettingsPage from '$lib/components/Settings.svelte';
 
   // Project Theme (could be fetched from project settings)
   const projectTheme = {
@@ -525,20 +525,7 @@
       </div>
     {:else if selectedTab === 'settings'}
       <!-- Settings Tab Content -->
-      <div class="bg-zinc-900/50 backdrop-blur-sm rounded-lg border border-zinc-800 p-6">
-        <h3 class="text-lg font-medium">Repository Settings</h3>
-        <p class="text-sm text-zinc-400 mt-2">Name: {settings.repositoryName}</p>
-        <p class="text-sm text-zinc-400 mt-2">Default Branch: {settings.defaultBranch}</p>
-        <p class="text-sm text-zinc-400 mt-2">Visibility: {settings.visibility}</p>
-        <div class="mt-2">
-          <h4 class="text-sm font-medium text-zinc-400">Topics:</h4>
-          <div class="flex gap-2 mt-1">
-            {#each settings.topics as topic}
-              <span class="px-2 py-1 text-xs bg-zinc-700 rounded-full">{topic}</span>
-            {/each}
-          </div>
-        </div>
-      </div>
+      <SettingsPage></SettingsPage>
     {/if}
   </div>
 </div>
