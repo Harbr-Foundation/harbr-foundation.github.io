@@ -74,7 +74,7 @@
     {
       icon: Plus,
       label: 'New Repository',
-      href: '/app/new',
+      href: '/app/repos/new',
       description: 'Create a new repository'
     },
     {
