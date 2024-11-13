@@ -5,6 +5,7 @@
 
   let isSidebarOpen = false;
   let isSearchOpen = false;
+let searchOpenedBy: 'keyboard' | 'click' | null = null;
   let isProfileOpen = false;
   let isNotificationsOpen = false;
   let isCreateOpen = false;
@@ -134,10 +135,20 @@
     }
   }
 
+  let lastKeyTime = 0;
+  const DEBOUNCE_TIME = 100; // 100ms debounce
+
   function handleKeydown(event: KeyboardEvent) {
+    const now = Date.now();
+    
     if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
-      isSearchOpen = !isSearchOpen;
+      
+      // Check if enough time has passed since last keypress
+      if (now - lastKeyTime > DEBOUNCE_TIME) {
+        isSearchOpen = !isSearchOpen;
+        lastKeyTime = now;
+      }
     } else if (event.key === 'Escape') {
       isSearchOpen = false;
       isNotificationsOpen = false;
@@ -148,13 +159,25 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
+<!-- Search Modal -->
 {#if isSearchOpen}
   <div class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50" transition:fly={{ duration: 200 }}>
     <div class="max-w-2xl mx-auto mt-20 p-4">
       <div class="flex items-center bg-zinc-900 rounded-lg p-3 border border-zinc-800">
         <Search size={20} class="text-zinc-400 mr-3" />
-        <input type="text" placeholder="Search repositories, issues, PRs..." class="flex-1 bg-transparent text-white placeholder-zinc-500 focus:outline-none" autofocus>
-        <button class="text-zinc-400 hover:text-white" on:click={() => isSearchOpen = false}>
+        <input 
+          type="text" 
+          placeholder="Search repositories, issues, PRs..." 
+          class="flex-1 bg-transparent text-white placeholder-zinc-500 focus:outline-none" 
+          autofocus
+        >
+        <button 
+          class="text-zinc-400 hover:text-white" 
+          on:click={() => {
+            isSearchOpen = false;
+            searchOpenedBy = null;
+          }}
+        >
           <X size={20} />
         </button>
       </div>
@@ -171,7 +194,16 @@
       <a href="/" class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">Harbr</a>
     </div>
 
-    <button class="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-zinc-400 bg-zinc-900/50 hover:bg-zinc-800 rounded-lg border border-zinc-800 flex-1 mx-8 max-w-lg" on:click={() => isSearchOpen = true}>
+    <!-- Search Button (not an input field) -->
+    <button 
+      class="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-zinc-400 bg-zinc-900/50 hover:bg-zinc-800 rounded-lg border border-zinc-800 flex-1 mx-8 max-w-lg" 
+      on:click={() => {
+        if (!isSearchOpen || searchOpenedBy === 'click') {
+          isSearchOpen = true;
+          searchOpenedBy = 'click';
+        }
+      }}
+    >
       <Search size={16} />
       <span>Quick search...</span>
       <span class="ml-auto text-zinc-600">⌘K</span>
