@@ -33,6 +33,7 @@
   </script>
   
   <footer class="border-t border-zinc-800 py-12 mt-24">
+    <h1 class="text-lg text-center pb-20 text-red-600">Footer links are a work in progress and may not yet all be functional</h1>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
         <!-- Brand Column -->
