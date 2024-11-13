@@ -83,7 +83,7 @@
 
     <!-- Main content -->
     <main class="flex-1 md:ml-64">
-      <div class="p-6">
+      <div class="">
         <slot />
       </div>
     </main>

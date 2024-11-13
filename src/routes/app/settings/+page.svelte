@@ -38,7 +38,7 @@
     };
   </script>
   
-  <div class="flex flex-col gap-6">
+  <div class="flex flex-col gap-6 m-6">
     <!-- Page Header -->
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-semibold text-white">Advanced Settings</h1>

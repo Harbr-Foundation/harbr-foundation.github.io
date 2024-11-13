@@ -19,8 +19,8 @@
   } from 'lucide-svelte';
   import Markdown from '$lib/components/Markdown.svelte';
 
-    // Repository Data
-    const repo = {
+  // Repository Data
+  const repo = {
     name: 'harbr/core',
     fullName: 'Harbr Core',
     description: 'Core functionality and backend services. Built with Rust for maximum performance and reliability.',

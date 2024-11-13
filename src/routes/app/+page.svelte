@@ -98,7 +98,7 @@
   ];
 </script>
 
-<div class="space-y-8">
+<div class="space-y-8 m-6">
   <!-- Shortcuts Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
     {#each shortcuts as { icon: Icon, label, href, description }}
