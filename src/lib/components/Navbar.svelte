@@ -7,10 +7,8 @@
     const navItems = [
 
         { href: '/app', label: 'App (formerly Dashboard)' },
-        { href: '/about', label: 'About' },
-        { href: '/features', label: 'Features' },
         { href: '/docs', label: 'Documentation' },
-        { href: '/source', label: 'Source Code' },
+        { href: 'https://github.com/Harbr-Foundation', label: 'Source Code' },
         { href: '/auth', label: 'Log In' }
     ];
   
