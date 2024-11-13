@@ -30,12 +30,12 @@
     
     // New sections data
     const integrations = [
-      { name: 'VS Code', icon: '📝', users: '12K+' },
-      { name: 'GitHub', icon: '🐙', users: '8K+' },
-      { name: 'GitLab', icon: '🦊', users: '5K+' },
-      { name: 'Jira', icon: '📊', users: '3K+' },
-      { name: 'Slack', icon: '💬', users: '7K+' },
-      { name: 'Discord', icon: '🎮', users: '4K+' }
+      { name: 'VS Code', icon: '📝', users: '27' },
+      { name: 'GitHub', icon: '🐙', users: '26' },
+      { name: 'GitLab', icon: '🦊', users: '0' },
+      { name: 'Jira', icon: '📊', users: '0' },
+      { name: 'Slack', icon: '💬', users: '0' },
+      { name: 'Discord', icon: '🎮', users: '3' }
     ];
   
     onMount(() => {
@@ -98,10 +98,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {#each [
-                { value: '2.5K+', label: 'GitHub Stars' },
-                { value: '150+', label: 'Contributors' },
-                { value: '1.2K+', label: 'Forks' },
-                { value: '40+', label: 'Languages' }
+                { value: '0', label: 'GitHub Stars' },
+                { value: '2', label: 'Contributors' },
+                { value: '0', label: 'Forks' },
+                { value: '7', label: 'Languages' }
             ] as stat}
                 <div class="p-6">
                     <div class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mb-2">

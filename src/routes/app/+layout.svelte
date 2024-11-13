@@ -14,7 +14,7 @@
   let isSearchOpen = false;
 
   const navigationItems = [
-    { href: '/app', label: 'App <AKA Dashboard>', icon: Home },
+    { href: '/app', label: 'Home', icon: Home },
     { href: '/app/repos', label: 'Repositories', icon: GitFork },
     { href: '/app/stars', label: 'Stars', icon: Star },
     { href: '/app/settings', label: 'Settings', icon: Settings }

@@ -75,7 +75,7 @@
   <div class="flex items-center justify-between">
     <h1 class="text-2xl font-semibold text-white">Repositories</h1>
     <a
-      href="/app/new"
+      href="/app/repos/new"
       class="px-4 py-2 bg-emerald-500 text-black font-medium rounded-lg hover:bg-emerald-400 transition-colors"
     >
       New
