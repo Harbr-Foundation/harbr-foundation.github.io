@@ -34,7 +34,7 @@
 
 <RepoHeading/>
 
-<div class="px-10">
+<div class="px-10 max-w-7xl mx-auto ">
   {#if $selectedTab === 'code'}
     <Code></Code>
   {:else if $selectedTab === 'issues'}

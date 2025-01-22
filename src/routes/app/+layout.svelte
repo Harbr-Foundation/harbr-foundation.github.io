@@ -6,12 +6,15 @@
     Star,
     Settings,
     Search,
-    X
+    X,
+    ChevronLeft,
+    ChevronRight
   } from 'lucide-svelte';
   import Navbar from '$lib/components/AppNavbar.svelte';
   
   let isSidebarOpen = false;
   let isSearchOpen = false;
+  let isSidebarCollapsed = true;
 
   const navigationItems = [
     { href: '/app', label: 'Home', icon: Home },
@@ -19,6 +22,10 @@
     { href: '/app/stars', label: 'Stars', icon: Star },
     { href: '/app/settings', label: 'Settings', icon: Settings }
   ];
+
+  function toggleSidebar() {
+    isSidebarCollapsed = !isSidebarCollapsed;
+  }
 </script>
 
 {#if isSearchOpen}
@@ -43,46 +50,62 @@
   </div>
 {/if}
 
-<div class="min-h-screen flex flex-col">
-<Navbar></Navbar>
+<div class="min-h-screen flex flex-col max-w-full overflow-hidden">
+  <Navbar />
   <!-- Main Layout -->
   <div class="flex-1 flex">
     <!-- Sidebar -->
-    <aside class={`fixed top-14 bottom-0 w-64 bg-black border-r border-zinc-800 transform transition-transform duration-200 ease-in-out z-30 md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+    <aside class={`fixed top-14 bottom-0 bg-black border-r border-zinc-800 transform transition-all duration-200 ease-in-out z-30 md:translate-x-0 
+      ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      ${isSidebarCollapsed ? 'w-16' : 'w-64'}`}>
+      
+      <!-- Collapse Toggle Button -->
+      <button
+        class="absolute -right-3 top-4 bg-black border border-zinc-800 rounded-full p-1 text-zinc-400 hover:text-white transition-colors"
+        on:click={toggleSidebar}
+      >
+        <svelte:component this={isSidebarCollapsed ? ChevronRight : ChevronLeft} size={16} />
+      </button>
+
       <div class="p-4">
         <nav class="space-y-1">
           {#each navigationItems as { href, label, icon: Icon }}
             <a
               {href}
               class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors {$page.url.pathname === href ? 'bg-emerald-500/10 text-emerald-400' : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'}"
+              title={isSidebarCollapsed ? label : ''}
             >
               <svelte:component this={Icon} size={20} />
-              {label}
+              {#if !isSidebarCollapsed}
+                {label}
+              {/if}
             </a>
           {/each}
         </nav>
 
-        <div class="mt-8">
-          <h3 class="px-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">
-            Recent Repositories
-          </h3>
-          <div class="mt-2 space-y-1">
-            {#each ['harbr/core', 'harbr/docs', 'harbr/ui'] as repo}
-              <a
-                href={`/app/repos/${repo}`}
-                class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:bg-zinc-800/50 hover:text-white transition-colors"
-              >
-                <GitFork size={16} />
-                {repo}
-              </a>
-            {/each}
+        {#if !isSidebarCollapsed}
+          <div class="mt-8">
+            <h3 class="px-3 text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              Recent Repositories
+            </h3>
+            <div class="mt-2 space-y-1">
+              {#each ['harbr/core', 'harbr/docs', 'harbr/ui'] as repo}
+                <a
+                  href={`/app/repos/${repo}`}
+                  class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:bg-zinc-800/50 hover:text-white transition-colors"
+                >
+                  <GitFork size={16} />
+                  {repo}
+                </a>
+              {/each}
+            </div>
           </div>
-        </div>
+        {/if}
       </div>
     </aside>
 
     <!-- Main content -->
-    <main class="flex-1 md:ml-64">
+    <main class={`flex-1 transition-all duration-200 ${isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'}`}>
       <div class="">
         <slot />
       </div>
