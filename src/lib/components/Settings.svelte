@@ -109,6 +109,7 @@
             }, {});
 
             console.log('Settings saved:', apiPayload);
+            // TODO: Implement actual API call to save settings
         } catch (error) {
             console.error('Error saving settings:', error);
         }
@@ -119,16 +120,16 @@
     });
 </script>
 
-
-<div class="max-w-4xl mx-auto px-4 py-8">
+<div class="max-w-4xl mx-auto px-4 py-8 bg-black">
     <!-- Tabs -->
-    <nav class="flex space-x-2 border-b border-gray-200 mb-8">
+    <nav class="flex space-x-2 border-b border-emerald-200 mb-8">
         {#each Object.keys(settings) as tab}
             <button
                 class="px-4 py-2 font-medium text-sm rounded-t-lg transition-colors duration-200 
                     {activeTab === tab ? 
-                        'bg-neutral-900 text-emerald-900 border-b-2 border-emerald-900' : 
-                        'text-gray-500 hover:text-gray-700'}" on:click={() => activeTab = tab}>
+                        'bg-emerald-100 text-emerald-800 border-b-2 border-emerald-600' : 
+                        'text-emerald-600 hover:bg-emerald-50 hover:text-emerald-900'}" 
+                on:click={() => activeTab = tab}>
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
         {/each}
@@ -137,9 +138,9 @@
     <!-- Settings Content -->
     <div class="space-y-6">
         {#each Object.entries(settings[activeTab]) as [id, setting]}
-            <div class="rounded-lg bg-neutral-900 p-6 shadow-sm">
+            <div class="rounded-lg bg-white border border-emerald-100 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex flex-col space-y-2">
-                    <label for={setting.id} class="text-sm font-medium text-white">
+                    <label for={setting.id} class="text-sm font-medium text-emerald-900">
                         {setting.label}
                     </label>
 
@@ -148,8 +149,8 @@
                             id={setting.id}
                             bind:value={setting.value}
                             on:change={() => handleSettingChange(activeTab, id, setting.value)}
-                            class="mt-1 block w-full pl-3 pr-10 py-2 bg-neutral-800 text-base border border-gray-300 rounded-md 
-                                         focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                            class="mt-1 block w-full pl-3 pr-10 py-2 bg-emerald-50 text-base border border-emerald-300 rounded-md 
+                                   focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         >
                             {#each setting.options as option}
                                 <option value={option}>{option}</option>
@@ -167,7 +168,7 @@
                                 class={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 
                                     border-transparent transition-colors duration-200 ease-in-out 
                                     focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 
-                                    ${setting.value ? 'bg-emerald-600' : 'bg-gray-200'}`}
+                                    ${setting.value ? 'bg-emerald-600' : 'bg-emerald-200'}`}
                                 role="switch"
                                 aria-checked={setting.value}
                             >
@@ -177,6 +178,9 @@
                                         ${setting.value ? 'translate-x-5' : 'translate-x-0'}`}
                                 />
                             </button>
+                            <span class="ml-3 text-sm text-emerald-900">
+                                {setting.value ? 'Enabled' : 'Disabled'}
+                            </span>
                         </div>
 
                     {:else if setting.type === 'textarea'}
@@ -184,9 +188,9 @@
                             id={setting.id}
                             bind:value={setting.value}
                             on:blur={() => handleSettingChange(activeTab, id, setting.value)}
-                            class="mt-1 block w-full rounded-md border bg-neutral-800 border-gray-300 shadow-sm py-2 px-3 
-                                focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
-                                sm:text-sm min-h-32"
+                            class="mt-1 block w-full rounded-md border bg-emerald-50 border-emerald-300 shadow-sm py-2 px-3 
+                                   focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
+                                   sm:text-sm min-h-32"
                         />
 
                     {:else}
@@ -195,13 +199,13 @@
                             id={setting.id}
                             bind:value={setting.value}
                             on:blur={() => handleSettingChange(activeTab, id, setting.value)}
-                            class="mt-1 block w-full rounded-md border bg-neutral-800 border-gray-300 shadow-sm py-2 px-3 
-                                focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
-                                sm:text-sm"
+                            class="mt-1 block w-full rounded-md border bg-emerald-50 border-emerald-300 shadow-sm py-2 px-3 
+                                   focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
+                                   sm:text-sm"
                         />
                     {/if}
 
-                    <p class="mt-2 text-sm text-emerald-900">
+                    <p class="mt-2 text-sm text-emerald-700">
                         {setting.description}
                     </p>
                 </div>
@@ -209,3 +213,10 @@
         {/each}
     </div>
 </div>
+
+<style>
+    /* Additional global styles can be added here if needed */
+    :global(body) {
+        background-color: #f0fdf4; /* Light emerald background */
+    }
+</style>
