@@ -10,16 +10,16 @@
     } from 'lucide-svelte';
     import { onMount } from 'svelte';
   
-    let searchQuery = '';
-    let showFilters = false;
+    let searchQuery = $state('');
+    let showFilters = $state(false);
     
     // Initialize repositories as empty array
-    let repositories = [];
+    let repositories = $state([]);
     
     // Filter states
-    let selectedType = 'all';
-    let selectedLanguage = 'all';
-    let selectedSort = 'updated';
+    let selectedType = $state('all');
+    let selectedLanguage = $state('all');
+    let selectedSort = $state('updated');
   
     const languages = [
       { name: 'All', value: 'all' },
@@ -45,7 +45,7 @@
     });
   
     // Filter and sort repositories
-    $: filteredRepos = repositories
+    let filteredRepos = $derived(repositories
       ? repositories.filter(repo => {
           const matchesSearch = repo.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                               (repo.description && repo.description.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -67,7 +67,7 @@
               return b.lastUpdated.localeCompare(a.lastUpdated);
           }
         })
-      : [];
+      : []);
   </script>
   
   <!-- Page Header -->
@@ -103,7 +103,7 @@
         <div class="relative">
           <button
             class="h-10 px-4 bg-black border border-zinc-800 rounded-md text-zinc-400 hover:text-white transition-colors flex items-center gap-2"
-            on:click={() => showFilters = !showFilters}
+            onclick={() => showFilters = !showFilters}
           >
             <Filter size={16} />
             Filters
@@ -119,7 +119,7 @@
                     {#each ['all', 'public', 'private'] as type}
                       <button
                         class="px-3 py-1 text-sm rounded-md {selectedType === type ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/50' : 'bg-zinc-800/50 text-zinc-400 border-transparent'} border"
-                        on:click={() => selectedType = type}
+                        onclick={() => selectedType = type}
                       >
                         {type.charAt(0).toUpperCase() + type.slice(1)}
                       </button>

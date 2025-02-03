@@ -1,7 +1,5 @@
 <script>
-    export let icon
-    export let title
-    export let description
+  let { icon, title, description } = $props();
 </script>
   
   <div class="group p-6 rounded-2xl bg-zinc-900/50 hover:bg-zinc-800/50 transform hover:-translate-y-1 transition-all">

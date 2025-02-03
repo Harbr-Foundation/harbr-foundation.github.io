@@ -1,14 +1,17 @@
 <script lang="ts">
+  import { createBubbler, stopPropagation } from 'svelte/legacy';
+
+  const bubble = createBubbler();
   import { Home, GitFork, Star, Settings, Bell, Search, Menu, X, User, GitBranch, Plus, LogOut, Blocks, Github, Book, MessageCircle, Settings as SettingsIcon } from 'lucide-svelte';
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
 
-  let isSidebarOpen = false;
-  let isSearchOpen = false;
-let searchOpenedBy: 'keyboard' | 'click' | null = null;
-  let isProfileOpen = false;
-  let isNotificationsOpen = false;
-  let isCreateOpen = false;
+  let isSidebarOpen = $state(false);
+  let isSearchOpen = $state(false);
+let searchOpenedBy: 'keyboard' | 'click' | null = $state(null);
+  let isProfileOpen = $state(false);
+  let isNotificationsOpen = $state(false);
+  let isCreateOpen = $state(false);
 
   const navigationItems = [
     { href: '/app', label: 'Dashboard', icon: Home },
@@ -157,7 +160,7 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
   }
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
 <!-- Search Modal -->
 {#if isSearchOpen}
@@ -173,7 +176,7 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
         >
         <button 
           class="text-zinc-400 hover:text-white" 
-          on:click={() => {
+          onclick={() => {
             isSearchOpen = false;
             searchOpenedBy = null;
           }}
@@ -188,7 +191,7 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
 <header class="border-b border-zinc-800 bg-black/90 backdrop-blur-sm sticky top-0 z-40 flex-none">
   <div class="flex items-center justify-between px-4 h-14">
     <div class="flex items-center gap-4">
-      <button class="md:hidden p-2 hover:bg-zinc-800/50 rounded-lg text-zinc-400" on:click={() => isSidebarOpen = !isSidebarOpen}>
+      <button class="md:hidden p-2 hover:bg-zinc-800/50 rounded-lg text-zinc-400" onclick={() => isSidebarOpen = !isSidebarOpen}>
         <Menu size={20} />
       </button>
       <a href="/" class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">Harbr</a>
@@ -197,7 +200,7 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
     <!-- Search Button (not an input field) -->
     <button 
       class="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm text-zinc-400 bg-zinc-900/50 hover:bg-zinc-800 rounded-lg border border-zinc-800 flex-1 mx-8 max-w-lg" 
-      on:click={() => {
+      onclick={() => {
         if (!isSearchOpen || searchOpenedBy === 'click') {
           isSearchOpen = true;
           searchOpenedBy = 'click';
@@ -212,17 +215,17 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
     <div class="flex items-center gap-4">
       <!-- Create Button -->
       <div class="relative">
-        <button id="create-button" class="p-2 hover:bg-zinc-800/50 rounded-lg text-zinc-400 flex items-center gap-2" on:click={toggleCreate}>
+        <button id="create-button" class="p-2 hover:bg-zinc-800/50 rounded-lg text-zinc-400 flex items-center gap-2" onclick={toggleCreate}>
           <Plus size={20} />
         </button>
 
         {#if isCreateOpen}
-          <div id="create-dropdown" class="absolute right-0 mt-2 w-64 bg-black border border-zinc-800 rounded-lg shadow-xl z-50" in:fly={{ y: -10, duration: 200 }} out:fly={{ y: -10, duration: 150 }} on:click|stopPropagation>
+          <div id="create-dropdown" class="absolute right-0 mt-2 w-64 bg-black border border-zinc-800 rounded-lg shadow-xl z-50" in:fly={{ y: -10, duration: 200 }} out:fly={{ y: -10, duration: 150 }} onclick={stopPropagation(bubble('click'))}>
             <div class="p-2">
               {#each createMenuItems as item}
-                <a href={item.href} on:click={() => isCreateOpen = false} class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:bg-zinc-800/50 hover:text-white rounded-lg transition-colors group mt-1">
+                <a href={item.href} onclick={() => isCreateOpen = false} class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:bg-zinc-800/50 hover:text-white rounded-lg transition-colors group mt-1">
                   <div class="p-2 rounded-lg {item.gradientClasses} border">
-                    <svelte:component this={item.icon} size={16} />
+                    <item.icon size={16} />
                   </div>
                   <div>
                     <p class="font-medium text-white">{item.label}</p>
@@ -237,7 +240,7 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
 
       <!-- Notifications -->
       <div class="relative">
-        <button id="notifications-button" class="p-2 hover:bg-zinc-800/50 rounded-lg relative text-zinc-400" on:click={toggleNotifications}>
+        <button id="notifications-button" class="p-2 hover:bg-zinc-800/50 rounded-lg relative text-zinc-400" onclick={toggleNotifications}>
           <Bell size={20} />
           {#if notifications.some(n => !n.read)}
             <span class="absolute top-1 right-1 w-2 h-2 bg-emerald-400 rounded-full"></span>
@@ -245,7 +248,7 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
         </button>
 
         {#if isNotificationsOpen}
-          <div id="notifications-dropdown" class="absolute right-0 mt-2 w-96 bg-black border border-zinc-800 rounded-lg shadow-xl z-50" transition:fly={{ y: -10, duration: 200 }} on:click|stopPropagation>
+          <div id="notifications-dropdown" class="absolute right-0 mt-2 w-96 bg-black border border-zinc-800 rounded-lg shadow-xl z-50" transition:fly={{ y: -10, duration: 200 }} onclick={stopPropagation(bubble('click'))}>
             <div class="p-4 border-b border-zinc-800">
               <div class="flex items-center justify-between">
                 <h3 class="font-medium text-white">Notifications</h3>
@@ -280,12 +283,12 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
 
       <!-- Profile -->
       <div class="relative">
-        <button id="profile-button" class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500" on:click={toggleProfile}>
+        <button id="profile-button" class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500" onclick={toggleProfile}>
           <span class="sr-only">Profile</span>
         </button>
 
         {#if isProfileOpen}
-          <div id="profile-dropdown" class="absolute right-0 mt-2 w-56 bg-black border border-zinc-800 rounded-lg shadow-xl z-50" transition:fly={{ y: -10, duration: 200 }} on:click|stopPropagation>
+          <div id="profile-dropdown" class="absolute right-0 mt-2 w-56 bg-black border border-zinc-800 rounded-lg shadow-xl z-50" transition:fly={{ y: -10, duration: 200 }} onclick={stopPropagation(bubble('click'))}>
             <div class="p-4 border-b border-zinc-800">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500"></div>
@@ -300,12 +303,12 @@ let searchOpenedBy: 'keyboard' | 'click' | null = null;
               {#each profileMenuItems as item}
                 {#if item.isButton}
                   <button class="w-full flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:bg-red-500/10 hover:text-red-400 rounded-lg transition-colors">
-                    <svelte:component this={item.icon} size={16} />
+                    <item.icon size={16} />
                     {item.label}
                   </button>
                 {:else}
                   <a href={item.href} class="flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:bg-zinc-800/50 hover:text-white rounded-lg transition-colors">
-                    <svelte:component this={item.icon} size={16} />
+                    <item.icon size={16} />
                     {item.label}
                   </a>
                 {/if}

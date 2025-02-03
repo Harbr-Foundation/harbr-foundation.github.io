@@ -11,17 +11,17 @@
   
   import Navbar from '$lib/components/Navbar.svelte';
 
-  export let data;
+  let { data, children } = $props();
   
   let searchQuery = '';
   let isMenuOpen = false;
   let openCategories: string[] = [];
   
-  $: filteredDocs = data.docs.filter(doc => 
+  let filteredDocs = $derived(data.docs.filter(doc => 
     doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     doc.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
     doc.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  ));
   
   function toggleCategory(category: string) {
     if (openCategories.includes(category)) {
@@ -32,14 +32,16 @@
   }
   
   // Group docs by category
-  $: docsByCategory = data.docs.reduce((acc, doc) => {
+  let docsByCategory = $derived(data.docs.reduce((acc, doc) => {
     const category = doc.category || 'Uncategorized';
     if (!acc[category]) {
       acc[category] = [];
     }
     acc[category].push(doc);
     return acc;
-  }, {} as Record<string, typeof data.docs>);
+  }, {} as Record<string, typeof data.docs>));
+
+  const children_render = $derived(children);
 </script>
 
 <div class="min-h-screen bg-black">
@@ -51,7 +53,7 @@
     <!-- Main content -->
     <main class="flex-1 min-w-0 py-6 lg:px-8 xl:px-12">
       <div class="px-4 sm:px-6 lg:px-0">
-        <slot />
+        {@render children_render?.()}
       </div>
     </main>
   </div>

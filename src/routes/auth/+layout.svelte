@@ -9,9 +9,14 @@
     X
   } from 'lucide-svelte';
   import Navbar from '$lib/components/Navbar.svelte';
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
   
   let isSidebarOpen = false;
-  let isSearchOpen = false;
+  let isSearchOpen = $state(false);
 
   const navigationItems = [
     { href: '/app', label: 'Dashboard', icon: Home },
@@ -19,6 +24,8 @@
     { href: '/app/stars', label: 'Stars', icon: Star },
     { href: '/app/settings', label: 'Settings', icon: Settings }
   ];
+
+  const children_render = $derived(children);
 </script>
 
 {#if isSearchOpen}
@@ -34,7 +41,7 @@
         >
         <button
           class="text-zinc-400 hover:text-white"
-          on:click={() => isSearchOpen = false}
+          onclick={() => isSearchOpen = false}
         >
           <X size={20} />
         </button>
@@ -47,12 +54,12 @@
 <Navbar></Navbar>
   <!-- Main content -->
   <main class="justify-center">
-      <slot />
+      {@render children_render?.()}
   </main>
 </div>
 
 <svelte:window
-  on:keydown={(e) => {
+  onkeydown={(e) => {
     if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       isSearchOpen = !isSearchOpen;

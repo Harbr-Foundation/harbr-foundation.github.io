@@ -1,11 +1,15 @@
 <!-- src/lib/components/Typewriter.svelte -->
 <script lang="ts">
-    export let text: string;
-    export let typingSpeed = 50;
-    export let startDelay = 500;
+   interface Props {
+      text: string;
+      typingSpeed?: number;
+      startDelay?: number;
+   }
+
+   let { text, typingSpeed = 50, startDelay = 500 }: Props = $props();
    
-    let displayText = '';
-    let isTyping = false;
+    let displayText = $state('');
+    let isTyping = $state(false);
    
     async function typeText() {
       isTyping = true;
@@ -27,7 +31,7 @@
     <h1 class="flex items-center pl-24">
       <span>{displayText}</span>
       {#if isTyping}
-        <span class="inline-block w-0.5 h-[1.25em] bg-emerald-500 ml-1 animate-pulse" />
+        <span class="inline-block w-0.5 h-[1.25em] bg-emerald-500 ml-1 animate-pulse"></span>
       {/if}
     </h1>
 </div>

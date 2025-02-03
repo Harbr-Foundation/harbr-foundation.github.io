@@ -14,10 +14,10 @@
     } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
     
-    export let data;
+  let { data } = $props();
     
-    let searchQuery = '';
-    let selectedCategories: string[] = [];
+    let searchQuery = $state('');
+    let selectedCategories: string[] = $state([]);
     
     // Popular articles - could be fetched from analytics or manually curated
     const popularArticles = [
@@ -48,7 +48,7 @@
     ];
   
     // Filter docs based on search and categories
-    $: filteredDocs = data.docs.filter(doc => {
+    let filteredDocs = $derived(data.docs.filter(doc => {
       const matchesSearch = searchQuery === '' || 
         doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -58,7 +58,7 @@
         selectedCategories.includes(doc.category);
         
       return matchesSearch && matchesCategories;
-    });
+    }));
   
     function toggleCategory(category: string) {
       if (selectedCategories.includes(category)) {
@@ -74,7 +74,7 @@
     <div class="relative isolate pt-14 pb-8 lg:pb-20">
       <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" 
            aria-hidden="true">
-        <div class="" />
+        <div class=""></div>
       </div>
   
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -125,7 +125,7 @@
                      backdrop-blur-sm p-6 hover:border-zinc-700 transition-colors"
             >
               <div class="p-2 rounded-lg bg-emerald-500/10 w-fit mb-4">
-                <svelte:component this={article.icon} size={20} class="text-emerald-500" />
+                <article.icon size={20} class="text-emerald-500" />
               </div>
               <h3 class="text-lg font-medium text-white group-hover:text-emerald-500 transition-colors">
                 {article.title}

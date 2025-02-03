@@ -113,8 +113,8 @@
         }
     }
 
-    let currentBranch = 'main';
-    let showBranchSelector = false;
+    let currentBranch = $state('main');
+    let showBranchSelector = $state(false);
 </script>
 
 <div class="grid grid-cols-12 gap-6 w-full md:grid-cols-12 sm:grid-cols-1">
@@ -125,7 +125,7 @@
             <button
                 class="w-full px-4 py-2 bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-lg
                        text-left flex items-center justify-between hover:bg-zinc-900 transition-colors"
-                on:click={() => showBranchSelector = !showBranchSelector}
+                onclick={() => showBranchSelector = !showBranchSelector}
             >
                 <div class="flex items-center gap-2">
                     <GitBranch size={16} />
@@ -143,19 +143,19 @@
                     <div class="p-2">
                         <button
                             class="w-full px-4 py-2 text-left hover:bg-zinc-800 rounded-lg transition-colors"
-                            on:click={() => currentBranch = 'main'}
+                            onclick={() => currentBranch = 'main'}
                         >
                             main
                         </button>
                         <button
                             class="w-full px-4 py-2 text-left hover:bg-zinc-800 rounded-lg transition-colors"
-                            on:click={() => currentBranch = 'dev'}
+                            onclick={() => currentBranch = 'dev'}
                         >
                             dev
                         </button>
                         <button
                             class="w-full px-4 py-2 text-left hover:bg-zinc-800 rounded-lg transition-colors"
-                            on:click={() => currentBranch = 'feature/new-feature'}
+                            onclick={() => currentBranch = 'feature/new-feature'}
                         >
                         </button>
                       </div> 

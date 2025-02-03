@@ -11,10 +11,15 @@
     ChevronRight
   } from 'lucide-svelte';
   import Navbar from '$lib/components/AppNavbar.svelte';
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
   
   let isSidebarOpen = false;
-  let isSearchOpen = false;
-  let isSidebarCollapsed = true;
+  let isSearchOpen = $state(false);
+  let isSidebarCollapsed = $state(true);
 
   const navigationItems = [
     { href: '/app', label: 'Home', icon: Home },
@@ -26,6 +31,10 @@
   function toggleSidebar() {
     isSidebarCollapsed = !isSidebarCollapsed;
   }
+
+  const SvelteComponent = $derived(isSidebarCollapsed ? ChevronRight : ChevronLeft);
+
+  const children_render = $derived(children);
 </script>
 
 {#if isSearchOpen}
@@ -41,7 +50,7 @@
         >
         <button
           class="text-zinc-400 hover:text-white"
-          on:click={() => isSearchOpen = false}
+          onclick={() => isSearchOpen = false}
         >
           <X size={20} />
         </button>
@@ -62,9 +71,9 @@
       <!-- Collapse Toggle Button -->
       <button
         class="absolute -right-3 top-4 bg-black border border-zinc-800 rounded-full p-1 text-zinc-400 hover:text-white transition-colors"
-        on:click={toggleSidebar}
+        onclick={toggleSidebar}
       >
-        <svelte:component this={isSidebarCollapsed ? ChevronRight : ChevronLeft} size={16} />
+        <SvelteComponent size={16} />
       </button>
 
       <div class="p-4">
@@ -75,7 +84,7 @@
               class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors {$page.url.pathname === href ? 'bg-emerald-500/10 text-emerald-400' : 'text-zinc-400 hover:bg-zinc-800/50 hover:text-white'}"
               title={isSidebarCollapsed ? label : ''}
             >
-              <svelte:component this={Icon} size={20} />
+              <Icon size={20} />
               {#if !isSidebarCollapsed}
                 {label}
               {/if}
@@ -107,14 +116,14 @@
     <!-- Main content -->
     <main class={`flex-1 transition-all duration-200 ${isSidebarCollapsed ? 'md:ml-16' : 'md:ml-64'}`}>
       <div class="">
-        <slot />
+        {@render children_render?.()}
       </div>
     </main>
   </div>
 </div>
 
 <svelte:window
-  on:keydown={(e) => {
+  onkeydown={(e) => {
     if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       isSearchOpen = !isSearchOpen;

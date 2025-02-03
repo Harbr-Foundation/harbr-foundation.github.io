@@ -18,7 +18,7 @@
     import OutlineButton from '$lib/components/OutlineButton.svelte';
     import FeatureCard from '$lib/components/ContentCard.svelte';
   
-    let activeTab = 'general';
+    let activeTab = $state('general');
   
     const tabs = [
       { id: 'general', name: 'General', icon: Settings },
@@ -29,13 +29,13 @@
     ];
   
     // Example settings state
-    let settings = {
+    let settings = $state({
       enableWebhooks: false,
       backupFrequency: 'daily',
       retentionDays: 30,
       enableAuditLog: true,
       notificationLevel: 'all'
-    };
+    });
   </script>
   
   <div class="flex flex-col gap-6 m-6">
@@ -57,9 +57,9 @@
                    {activeTab === tab.id 
                      ? 'text-emerald-400 border-b-2 border-emerald-500 bg-zinc-900/50' 
                      : 'text-zinc-400 hover:text-white hover:bg-zinc-900/30'}"
-            on:click={() => activeTab = tab.id}
+            onclick={() => activeTab = tab.id}
           >
-            <svelte:component this={tab.icon} size={16} />
+            <tab.icon size={16} />
             {tab.name}
           </button>
         {/each}

@@ -80,9 +80,9 @@
   ];
 
   // Active filters
-  let selectedType = 'all';
-  let selectedSort = 'newest';
-  let searchQuery = '';
+  let selectedType = $state('all');
+  let selectedSort = $state('newest');
+  let searchQuery = $state('');
 
   // Format date helper
   function formatDate(dateString) {
@@ -138,7 +138,7 @@
     <button
       class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors
              {selectedType === 'all' ? 'bg-zinc-700 text-white' : 'bg-zinc-800/50 text-zinc-400 hover:text-white'}"
-      on:click={() => selectedType = 'all'}
+      onclick={() => selectedType = 'all'}
     >
       All
     </button>
@@ -148,9 +148,9 @@
         style="background-color: {selectedType === type.id ? type.color + '40' : 'rgba(39, 39, 42, 0.5)'};
                color: {selectedType === type.id ? type.color : '#a1a1aa'};
                border: 1px solid {selectedType === type.id ? type.color + '80' : 'transparent'}"
-        on:click={() => selectedType = type.id}
+        onclick={() => selectedType = type.id}
       >
-        <svelte:component this={type.icon} size={14} />
+        <type.icon size={14} />
         {type.name}
       </button>
     {/each}
@@ -162,7 +162,7 @@
     {#each sortOptions as option}
       <button
         class="transition-colors hover:text-white {selectedSort === option.id ? 'text-white font-medium' : ''}"
-        on:click={() => selectedSort = option.id}
+        onclick={() => selectedSort = option.id}
       >
         {option.name}
       </button>
@@ -179,8 +179,7 @@
           <div class="flex items-start gap-4">
             <!-- Type Icon -->
             <div class="pt-1">
-              <svelte:component 
-                this={type.icon} 
+              <type.icon 
                 size={20} 
                 style="color: {type.color}"
               />

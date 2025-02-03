@@ -1,4 +1,6 @@
 <script>
+    import { preventDefault } from 'svelte/legacy';
+
     import { Spinner } from 'flowbite-svelte';
     import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
@@ -18,11 +20,11 @@
         "Done, here is your cake! 🎂"
     ];
     let currentMessageIndex = 0;
-    let showForm = true;
-    let showLoading = false;
-    let repoName = '';
-    let description = '';
-    let displayedMessages = [];
+    let showForm = $state(true);
+    let showLoading = $state(false);
+    let repoName = $state('');
+    let description = $state('');
+    let displayedMessages = $state([]);
 
     function typewriterEffect(text, speed = 50) {
         return new Promise(resolve => {
@@ -276,20 +278,20 @@
 <div class="min-h-screen bg-black text-white flex items-center justify-center p-4 relative overflow-hidden">
     <!-- Animated background -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute inset-0 bg-black/40" />
+        <div class="absolute inset-0 bg-black/40"></div>
         
         <!-- Animated floating orbs -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-emerald-600/20 blur-3xl animate-float-1" />
-        <div class="absolute top-3/4 left-2/3 w-72 h-72 rounded-full bg-emerald-500/20 blur-3xl animate-float-2" />
-        <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-emerald-700/20 blur-3xl animate-float-3" />
-        <div class="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-emerald-600/20 blur-3xl animate-float-4" />
-        <div class="absolute top-2/3 right-1/3 w-88 h-88 rounded-full bg-emerald-500/20 blur-3xl animate-float-5" />
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-emerald-600/20 blur-3xl animate-float-1"></div>
+        <div class="absolute top-3/4 left-2/3 w-72 h-72 rounded-full bg-emerald-500/20 blur-3xl animate-float-2"></div>
+        <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-emerald-700/20 blur-3xl animate-float-3"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-emerald-600/20 blur-3xl animate-float-4"></div>
+        <div class="absolute top-2/3 right-1/3 w-88 h-88 rounded-full bg-emerald-500/20 blur-3xl animate-float-5"></div>
     </div>
 
     {#if showForm}
         <form 
             class="repo-form"
-            on:submit|preventDefault={handleSubmit}
+            onsubmit={preventDefault(handleSubmit)}
             transition:fade
         >
             <div class="form-group">

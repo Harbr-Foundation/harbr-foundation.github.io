@@ -22,7 +22,7 @@
   import { selectedTab } from '$lib/stores/tabStore';
   
   // Add mobile menu state
-  let isMobileMenuOpen = false;
+  let isMobileMenuOpen = $state(false);
 
   const projectTheme = {
     primaryColor: '#10B981',
@@ -68,6 +68,8 @@
     { id: 'insights', icon: Infinity, label: 'Insights' },
     { id: 'settings', icon: Settings, label: 'Settings' }
   ];
+
+  const SvelteComponent = $derived(tabs.find(t => t.id === $selectedTab)?.icon);
 </script>
 
 <style>
@@ -179,10 +181,10 @@ style="--primary-color: {projectTheme.primaryColor};
     <!-- Mobile Menu Button -->
     <button
       class="mobile-menu w-full p-3 text-left border border-white/10 rounded-lg mb-4 flex items-center justify-between"
-      on:click={() => isMobileMenuOpen = !isMobileMenuOpen}
+      onclick={() => isMobileMenuOpen = !isMobileMenuOpen}
     >
       <div class="flex items-center gap-2">
-        <svelte:component this={tabs.find(t => t.id === $selectedTab)?.icon} size={16} />
+        <SvelteComponent size={16} />
         <span>{tabs.find(t => t.id === $selectedTab)?.label}</span>
       </div>
       <Menu size={16} />
@@ -196,9 +198,9 @@ style="--primary-color: {projectTheme.primaryColor};
                  {$selectedTab === tab.id ? 
                    'border-white text-white' : 
                    'border-transparent text-zinc-400 hover:text-white hover:bg-white/5'}"
-          on:click={() => $selectedTab = tab.id}
+          onclick={() => $selectedTab = tab.id}
         >
-          <svelte:component this={tab.icon} size={16} />
+          <tab.icon size={16} />
           {tab.label}
           {#if tab.count !== undefined}
             <span class="px-2 py-0.5 text-xs bg-black/20 rounded-full">
@@ -218,12 +220,12 @@ style="--primary-color: {projectTheme.primaryColor};
                    {$selectedTab === tab.id ? 
                      'bg-white/10 text-white' : 
                      'text-zinc-400 hover:text-white hover:bg-white/5'}"
-            on:click={() => {
+            onclick={() => {
               $selectedTab = tab.id;
               isMobileMenuOpen = false;
             }}
           >
-            <svelte:component this={tab.icon} size={16} />
+            <tab.icon size={16} />
             {tab.label}
             {#if tab.count !== undefined}
               <span class="px-2 py-0.5 text-xs bg-black/20 rounded-full">

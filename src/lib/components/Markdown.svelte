@@ -7,7 +7,13 @@
       CheckCheck
     } from 'lucide-svelte';
   
-    export let content = '';
+  /**
+   * @typedef {Object} Props
+   * @property {string} [content]
+   */
+
+  /** @type {Props} */
+  let { content = '' } = $props();
     let copied = false;
   
     // Configure marked options
@@ -19,7 +25,7 @@
     });
   
     // Custom renderer
-    const renderer = new marked.Renderer();
+    const renderer = $state(new marked.Renderer());
   
     // Custom code block rendering
     renderer.code = (code, language) => {

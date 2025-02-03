@@ -88,9 +88,9 @@
   ];
 
   // Active filters
-  let selectedCategory = 'all';
-  let selectedSort = 'newest';
-  let searchQuery = '';
+  let selectedCategory = $state('all');
+  let selectedSort = $state('newest');
+  let searchQuery = $state('');
 
   // Format date helper
   function formatDate(dateString) {
@@ -139,7 +139,7 @@
     <button
       class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors
              {selectedCategory === 'all' ? 'bg-zinc-700 text-white' : 'bg-zinc-800/50 text-zinc-400 hover:text-white'}"
-      on:click={() => selectedCategory = 'all'}
+      onclick={() => selectedCategory = 'all'}
     >
       All
     </button>
@@ -149,9 +149,9 @@
         style="background-color: {selectedCategory === category.id ? category.color + '40' : 'rgba(39, 39, 42, 0.5)'};
                color: {selectedCategory === category.id ? category.color : '#a1a1aa'};
                border: 1px solid {selectedCategory === category.id ? category.color + '80' : 'transparent'}"
-        on:click={() => selectedCategory = category.id}
+        onclick={() => selectedCategory = category.id}
       >
-        <span class="w-2 h-2 rounded-full" style="background-color: {category.color}" />
+        <span class="w-2 h-2 rounded-full" style="background-color: {category.color}"></span>
         {category.name}
       </button>
     {/each}
@@ -163,7 +163,7 @@
     {#each sortOptions as option}
       <button
         class="transition-colors hover:text-white {selectedSort === option.id ? 'text-white font-medium' : ''}"
-        on:click={() => selectedSort = option.id}
+        onclick={() => selectedSort = option.id}
       >
         {option.name}
       </button>
@@ -210,7 +210,7 @@
                         class="px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1"
                         style="background-color: {label.color}20; color: {label.color}"
                       >
-                        <svelte:component this={label.icon} size={12} />
+                        <label.icon size={12} />
                         {label.name}
                       </div>
                     {/if}

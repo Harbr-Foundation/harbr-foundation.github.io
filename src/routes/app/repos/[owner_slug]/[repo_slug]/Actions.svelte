@@ -81,9 +81,9 @@
   ];
 
   // Active filters
-  let selectedStatus = 'all';
-  let selectedSort = 'newest';
-  let searchQuery = '';
+  let selectedStatus = $state('all');
+  let selectedSort = $state('newest');
+  let searchQuery = $state('');
 
   // Format date helper
   function formatDate(dateString) {
@@ -137,7 +137,7 @@
     <button
       class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors
              {selectedStatus === 'all' ? 'bg-zinc-700 text-white' : 'bg-zinc-800/50 text-zinc-400 hover:text-white'}"
-      on:click={() => selectedStatus = 'all'}
+      onclick={() => selectedStatus = 'all'}
     >
       All
     </button>
@@ -147,9 +147,9 @@
         style="background-color: {selectedStatus === status.id ? status.color + '40' : 'rgba(39, 39, 42, 0.5)'};
                color: {selectedStatus === status.id ? status.color : '#a1a1aa'};
                border: 1px solid {selectedStatus === status.id ? status.color + '80' : 'transparent'}"
-        on:click={() => selectedStatus = status.id}
+        onclick={() => selectedStatus = status.id}
       >
-        <svelte:component this={status.icon} size={14} />
+        <status.icon size={14} />
         {status.name}
       </button>
     {/each}
@@ -161,7 +161,7 @@
     {#each sortOptions as option}
       <button
         class="transition-colors hover:text-white {selectedSort === option.id ? 'text-white font-medium' : ''}"
-        on:click={() => selectedSort = option.id}
+        onclick={() => selectedSort = option.id}
       >
         {option.name}
       </button>
@@ -178,8 +178,7 @@
           <div class="flex items-start gap-4">
             <!-- Status Icon -->
             <div class="pt-1">
-              <svelte:component 
-                this={status.icon} 
+              <status.icon 
                 size={20} 
                 style="color: {status.color}"
               />
@@ -244,8 +243,7 @@
               {@const stepStatus = getActionStatus(step.status)}
               <div class="flex items-center justify-between py-2 px-3 rounded bg-zinc-800/50">
                 <div class="flex items-center gap-3">
-                  <svelte:component 
-                    this={stepStatus.icon} 
+                  <stepStatus.icon 
                     size={16} 
                     style="color: {stepStatus.color}"
                   />

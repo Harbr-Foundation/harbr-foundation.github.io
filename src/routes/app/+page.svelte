@@ -108,7 +108,7 @@
       >
         <div class="flex items-center gap-3">
           <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20">
-            <svelte:component this={Icon} size={20} />
+            <Icon size={20} />
           </div>
           <div>
             <h3 class="font-medium text-white">{label}</h3>
@@ -180,7 +180,7 @@
       {#each activityFeed as activity}
         <div class="flex items-start gap-4 p-4 bg-zinc-900/50 rounded-lg border border-zinc-800">
           <div class="p-2 rounded-lg bg-zinc-800/50 {activity.iconColor}">
-            <svelte:component this={activity.icon} size={20} />
+            <activity.icon size={20} />
           </div>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-2">

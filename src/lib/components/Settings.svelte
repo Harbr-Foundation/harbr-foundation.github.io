@@ -90,8 +90,8 @@
         }
     };
 
-    let activeTab = 'general';
-    let settings = JSON.parse(JSON.stringify(settingsConfig)); // Deep copy for local state
+    let activeTab = $state('general');
+    let settings = $state(JSON.parse(JSON.stringify(settingsConfig))); // Deep copy for local state
 
     function handleSettingChange(category, settingId, value) {
         settings[category][settingId].value = value;
@@ -129,7 +129,7 @@
                     {activeTab === tab ? 
                         'bg-emerald-100 text-emerald-800 border-b-2 border-emerald-600' : 
                         'text-emerald-600 hover:bg-emerald-50 hover:text-emerald-900'}" 
-                on:click={() => activeTab = tab}>
+                onclick={() => activeTab = tab}>
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
         {/each}
@@ -148,7 +148,7 @@
                         <select
                             id={setting.id}
                             bind:value={setting.value}
-                            on:change={() => handleSettingChange(activeTab, id, setting.value)}
+                            onchange={() => handleSettingChange(activeTab, id, setting.value)}
                             class="mt-1 block w-full pl-3 pr-10 py-2 bg-emerald-50 text-base border border-emerald-300 rounded-md 
                                    focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                         >
@@ -161,7 +161,7 @@
                         <div class="flex items-center">
                             <button
                                 type="button"
-                                on:click={() => {
+                                onclick={() => {
                                     setting.value = !setting.value;
                                     handleSettingChange(activeTab, id, setting.value);
                                 }}
@@ -176,7 +176,7 @@
                                     class={`pointer-events-none inline-block h-5 w-5 transform rounded-full 
                                         bg-white shadow ring-0 transition duration-200 ease-in-out
                                         ${setting.value ? 'translate-x-5' : 'translate-x-0'}`}
-                                />
+></span>
                             </button>
                             <span class="ml-3 text-sm text-emerald-900">
                                 {setting.value ? 'Enabled' : 'Disabled'}
@@ -187,18 +187,18 @@
                         <textarea
                             id={setting.id}
                             bind:value={setting.value}
-                            on:blur={() => handleSettingChange(activeTab, id, setting.value)}
+                            onblur={() => handleSettingChange(activeTab, id, setting.value)}
                             class="mt-1 block w-full rounded-md border bg-emerald-50 border-emerald-300 shadow-sm py-2 px-3 
                                    focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
                                    sm:text-sm min-h-32"
-                        />
+></textarea>
 
                     {:else}
                         <input
                             type="text"
                             id={setting.id}
                             bind:value={setting.value}
-                            on:blur={() => handleSettingChange(activeTab, id, setting.value)}
+                            onblur={() => handleSettingChange(activeTab, id, setting.value)}
                             class="mt-1 block w-full rounded-md border bg-emerald-50 border-emerald-300 shadow-sm py-2 px-3 
                                    focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
                                    sm:text-sm"

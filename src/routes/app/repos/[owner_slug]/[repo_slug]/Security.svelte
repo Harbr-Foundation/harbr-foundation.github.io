@@ -103,10 +103,10 @@
   ];
 
   // Active filters
-  let selectedSeverity = 'all';
-  let selectedSort = 'newest';
-  let searchQuery = '';
-  let showFixedVulnerabilities = true;
+  let selectedSeverity = $state('all');
+  let selectedSort = $state('newest');
+  let searchQuery = $state('');
+  let showFixedVulnerabilities = $state(true);
 
   // Format date helper
   function formatDate(dateString) {
@@ -125,6 +125,8 @@
   function getSeverityLevel(severity) {
     return severityLevels.find(s => s.id === severity) || severityLevels[0];
   }
+
+  const SvelteComponent = $derived(showFixedVulnerabilities ? Eye : EyeOff);
 </script>
 
 <div class="max-w-7xl mx-auto px-4">
@@ -134,8 +136,7 @@
       <div class="bg-zinc-800/50 backdrop-blur-sm rounded-lg border border-zinc-700/50 p-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <svelte:component 
-              this={level.icon} 
+            <level.icon 
               size={20} 
               style="color: {level.color}"
             />
@@ -180,7 +181,7 @@
     <button
       class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors
              {selectedSeverity === 'all' ? 'bg-zinc-700 text-white' : 'bg-zinc-800/50 text-zinc-400 hover:text-white'}"
-      on:click={() => selectedSeverity = 'all'}
+      onclick={() => selectedSeverity = 'all'}
     >
       All
     </button>
@@ -190,9 +191,9 @@
         style="background-color: {selectedSeverity === level.id ? level.color + '40' : 'rgba(39, 39, 42, 0.5)'};
                color: {selectedSeverity === level.id ? level.color : '#a1a1aa'};
                border: 1px solid {selectedSeverity === level.id ? level.color + '80' : 'transparent'}"
-        on:click={() => selectedSeverity = level.id}
+        onclick={() => selectedSeverity = level.id}
       >
-        <svelte:component this={level.icon} size={14} />
+        <level.icon size={14} />
         {level.name}
       </button>
     {/each}
@@ -205,7 +206,7 @@
       {#each sortOptions as option}
         <button
           class="transition-colors hover:text-white {selectedSort === option.id ? 'text-white font-medium' : ''}"
-          on:click={() => selectedSort = option.id}
+          onclick={() => selectedSort = option.id}
         >
           {option.name}
         </button>
@@ -214,9 +215,9 @@
     
     <button
       class="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors"
-      on:click={() => showFixedVulnerabilities = !showFixedVulnerabilities}
+      onclick={() => showFixedVulnerabilities = !showFixedVulnerabilities}
     >
-      <svelte:component this={showFixedVulnerabilities ? Eye : EyeOff} size={16} />
+      <SvelteComponent size={16} />
       {showFixedVulnerabilities ? 'Hide' : 'Show'} Fixed Vulnerabilities
     </button>
   </div>
@@ -231,8 +232,7 @@
           <div class="flex items-start gap-4">
             <!-- Severity Icon -->
             <div class="pt-1">
-              <svelte:component 
-                this={severity.icon} 
+              <severity.icon 
                 size={20} 
                 style="color: {severity.color}"
               />

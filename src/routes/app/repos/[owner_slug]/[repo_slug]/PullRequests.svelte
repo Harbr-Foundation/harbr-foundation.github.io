@@ -114,9 +114,9 @@
   ];
 
   // Active filters
-  let selectedStatus = "all";
-  let selectedSort = "newest";
-  let searchQuery = "";
+  let selectedStatus = $state("all");
+  let selectedSort = $state("newest");
+  let searchQuery = $state("");
 
   // Format date helper
   function formatDate(dateString) {
@@ -186,7 +186,7 @@
              {selectedStatus === 'all'
         ? 'bg-zinc-700 text-white'
         : 'bg-zinc-800/50 text-zinc-400 hover:text-white'}"
-      on:click={() => (selectedStatus = "all")}
+      onclick={() => (selectedStatus = "all")}
     >
       All
     </button>
@@ -200,9 +200,9 @@
                border: 1px solid {selectedStatus === status.id
           ? status.color + '80'
           : 'transparent'}"
-        on:click={() => (selectedStatus = status.id)}
+        onclick={() => (selectedStatus = status.id)}
       >
-        <svelte:component this={status.icon} size={14} />
+        <status.icon size={14} />
         {status.name}
       </button>
     {/each}
@@ -216,7 +216,7 @@
         class="transition-colors hover:text-white {selectedSort === option.id
           ? 'text-white font-medium'
           : ''}"
-        on:click={() => (selectedSort = option.id)}
+        onclick={() => (selectedSort = option.id)}
       >
         {option.name}
       </button>
@@ -236,8 +236,7 @@
             {#if pr.status}
               {@const status = statusTypes.find((s) => s.id === pr.status)}
               <div class="pt-1">
-                <svelte:component
-                  this={status.icon}
+                <status.icon
                   size={20}
                   style="color: {status.color}"
                 />
@@ -263,7 +262,7 @@
                         class="px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1"
                         style="background-color: {label.color}20; color: {label.color}"
                       >
-                        <svelte:component this={label.icon} size={12} />
+                        <label.icon size={12} />
                         {label.name}
                       </div>
                     {/if}
@@ -298,7 +297,7 @@
                   class="flex items-center gap-1.5"
                   style="color: {ciStatus.color}"
                 >
-                  <svelte:component this={ciStatus.icon} size={16} />
+                  <ciStatus.icon size={16} />
                 </div>
               {/if}
 

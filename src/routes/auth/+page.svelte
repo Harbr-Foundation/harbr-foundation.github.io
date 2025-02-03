@@ -14,18 +14,22 @@
     import Typewriter from '$lib/components/Typewriter.svelte';
     import { fly, fade } from 'svelte/transition';
     
-    export let form: ActionData;
+  interface Props {
+    form: ActionData;
+  }
+
+  let { form }: Props = $props();
     
-    let isLogin = true;
-    let showPassword = false;
-    let isSubmitting = false;
+    let isLogin = $state(true);
+    let showPassword = $state(false);
+    let isSubmitting = $state(false);
     
     // Form validation states
-    let errors = {
+    let errors = $state({
       username: '',
       email: '',
       password: ''
-    };
+    });
     
     function validateForm(formData: FormData): boolean {
       let isValid = true;
@@ -64,14 +68,14 @@
     <!-- Animated background -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
       <!-- Base dark overlay -->
-      <div class="absolute inset-0 bg-black/40" />
+      <div class="absolute inset-0 bg-black/40"></div>
       
       <!-- Animated floating orbs -->
-      <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-emerald-600/20 blur-3xl animate-float-1" />
-      <div class="absolute top-3/4 left-2/3 w-72 h-72 rounded-full bg-emerald-500/20 blur-3xl animate-float-2" />
-      <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-emerald-700/20 blur-3xl animate-float-3" />
-      <div class="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-emerald-600/20 blur-3xl animate-float-4" />
-      <div class="absolute top-2/3 right-1/3 w-88 h-88 rounded-full bg-emerald-500/20 blur-3xl animate-float-5" />
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-emerald-600/20 blur-3xl animate-float-1"></div>
+      <div class="absolute top-3/4 left-2/3 w-72 h-72 rounded-full bg-emerald-500/20 blur-3xl animate-float-2"></div>
+      <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-emerald-700/20 blur-3xl animate-float-3"></div>
+      <div class="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-emerald-600/20 blur-3xl animate-float-4"></div>
+      <div class="absolute top-2/3 right-1/3 w-88 h-88 rounded-full bg-emerald-500/20 blur-3xl animate-float-5"></div>
     </div>
   
     <!-- Auth container -->
@@ -96,14 +100,14 @@
         <!-- Tab switcher -->
         <div class="flex gap-1 mb-6">
           <button 
-            on:click={() => isLogin = true}
+            onclick={() => isLogin = true}
             class="flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-colors
               {isLogin ? 'bg-emerald-600 text-white' : 'text-zinc-400 hover:text-white hover:bg-white/5'}"
           >
             Sign In
           </button>
           <button 
-            on:click={() => isLogin = false}
+            onclick={() => isLogin = false}
             class="flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-colors
               {!isLogin ? 'bg-emerald-600 text-white' : 'text-zinc-400 hover:text-white hover:bg-white/5'}"
           >
@@ -191,7 +195,7 @@
               <Lock size={18} class="absolute left-3 top-3 text-zinc-500" />
               <button
                 type="button"
-                on:click={() => showPassword = !showPassword}
+                onclick={() => showPassword = !showPassword}
                 class="absolute right-3 top-3 text-zinc-500 hover:text-zinc-300"
               >
                 {#if showPassword}
@@ -250,7 +254,7 @@
               Don't have an account?
               <button 
                 type="button"
-                on:click={() => isLogin = false}
+                onclick={() => isLogin = false}
                 class="text-emerald-500 hover:text-emerald-400 font-medium ml-1"
               >
                 Sign up
@@ -259,7 +263,7 @@
               Already have an account?
               <button 
                 type="button"
-                on:click={() => isLogin = true}
+                onclick={() => isLogin = true}
                 class="text-emerald-500 hover:text-emerald-400 font-medium ml-1"
               >
                 Sign in

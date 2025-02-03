@@ -5,7 +5,7 @@
     
     import Markdown from '$lib/components/Markdown.svelte'
 
-    export let data;
+  let { data } = $props();
     
     // Handle markdown content rendering
     onMount(async () => {

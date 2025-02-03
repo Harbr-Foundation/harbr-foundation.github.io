@@ -2,7 +2,7 @@
     import { page } from '$app/stores';
     import { fly } from 'svelte/transition';
   
-    let isMenuOpen = false;
+    let isMenuOpen = $state(false);
   
     const navItems = [
 
@@ -44,7 +44,7 @@
         <!-- Mobile Menu Button -->
         <button
           class="md:hidden p-2 rounded-lg hover:bg-zinc-800/50"
-          on:click={toggleMenu}
+          onclick={toggleMenu}
           aria-label="Toggle menu"
         >
         </button>
@@ -62,7 +62,7 @@
             <a
               {href}
               class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-zinc-800/50 transition-colors {$page.url.pathname === href ? 'text-emerald-400 bg-zinc-800/50' : ''}"
-              on:click={() => isMenuOpen = false}
+              onclick={() => isMenuOpen = false}
             >
               {label}
             </a>
