@@ -6,7 +6,7 @@
   
     const navItems = [
 
-        { href: '/app', label: 'App (formerly Dashboard)' },
+        { href: '/app', label: 'App' },
         { href: '/docs', label: 'Documentation' },
         { href: 'https://github.com/Harbr-Foundation', label: 'Source Code' },
         { href: '/auth', label: 'Log In' }
