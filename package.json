@@ -28,6 +28,7 @@
 		"@steeze-ui/svelte-icon": "^1.6.2",
 		"@types/node": "^22.10.5",
 		"@types/prismjs": "^1.26.5",
+		"flowbite-svelte": "^0.47.4",
 		"flowbite-svelte-icons": "^2.0.2",
 		"lucide-svelte": "^0.465.0",
 		"marked": "^15.0.3",
