@@ -11,7 +11,7 @@ export const load: LayoutServerLoad = async ({ url }) => {
   return {
     docs: docsConfig.docs,
     currentDoc: docsConfig.docs.find(
-      doc => url.pathname === `/docs/${doc.slug}`
+      (      doc: { slug: any; }) => url.pathname === `/docs/${doc.slug}`
     )
   };
 };

@@ -218,3 +218,4 @@
 //      attempt.count++;
 //      return true;
 //    }
+export const prerender: boolean = true;

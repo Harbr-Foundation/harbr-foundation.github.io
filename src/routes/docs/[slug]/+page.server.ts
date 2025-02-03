@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { marked } from 'marked';
 import type { PageServerLoad } from './$types';
-
+export const prerender = 'auto';
 export const load: PageServerLoad = async ({ params }) => {
   const { slug } = params;
   
